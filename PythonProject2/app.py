@@ -82,14 +82,14 @@ if st.sidebar.button("🌱 Recommend Crop"):
     st.sidebar.success(f"✅ Recommended Crop: **{prediction}**")
 
     # --- Visualization ---
-    fig, ax = plt.subplots(figsize=(4, 3))
+    fig, ax = plt.subplots(figsize=(3, 3))
     input_values = [N, P, K, temperature, humidity, ph, rainfall]
     input_labels = ["Nitrogen", "Phosphorus", "Potassium", "Temp (°C)", "Humidity (%)", "pH", "Rainfall (mm)"]
 
     sns.barplot(x=input_labels, y=input_values, palette="coolwarm", ax=ax)
-    ax.set_title(f"📊 Input Parameters for {prediction}", fontsize=16)
-    ax.set_ylabel("Value", fontsize=12)
-    ax.set_xlabel("Parameters", fontsize=12)
+    ax.set_title(f"📊 Input Parameters for {prediction}", fontsize=10)
+    ax.set_ylabel("Value", fontsize=8)
+    ax.set_xlabel("Parameters", fontsize=8)
     ax.set_xticklabels(ax.get_xticklabels(), rotation=30)
     
     st.pyplot(fig)
