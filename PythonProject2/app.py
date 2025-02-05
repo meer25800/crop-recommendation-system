@@ -82,7 +82,7 @@ if st.sidebar.button("🌱 Recommend Crop"):
     st.sidebar.success(f"✅ Recommended Crop: **{prediction}**")
 
     # --- Visualization ---
-    fig, ax = plt.subplots(figsize=(5,5 ))
+    fig, ax = plt.subplots(figsize=(3,3 ))
     input_values = [N, P, K, temperature, humidity, ph, rainfall]
     input_labels = ["Nitrogen", "Phosphorus", "Potassium", "Temp (°C)", "Humidity (%)", "pH", "Rainfall (mm)"]
 
