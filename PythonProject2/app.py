@@ -4,11 +4,22 @@ import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
 import plotly.express as px
+import plotly.graph_objects as go
+import requests
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.svm import SVC
 from sklearn.preprocessing import LabelEncoder
 from time import sleep
+import sys
+import subprocess
+
+# Ensure Plotly is installed
+try:
+    import plotly.express as px
+except ModuleNotFoundError:
+    subprocess.check_call([sys.executable, "-m", "pip", "install", "plotly"])
+    import plotly.express as px
 
 # --- Page Config ---
 st.set_page_config(
@@ -21,16 +32,18 @@ st.set_page_config(
 st.markdown("""
     <style>
         .stApp {
-            background-color: #2B3A3A;  /* Dark Greenish Background */
+            background: linear-gradient(to right, #2B3A3A, #3E4C4C);
             color: #ffffff;
         }
         .big-font {
-            font-size: 26px !important;
+            font-size: 28px !important;
             font-weight: bold;
             color: #2BCEEE;
         }
         .sidebar .sidebar-content {
             background-color: #1F2D2D;
+            border-radius: 10px;
+            padding: 10px;
         }
     </style>
 """, unsafe_allow_html=True)
@@ -103,6 +116,15 @@ if st.sidebar.button("🌱 Recommend Crop"):
     fig.update_traces(fill='toself', line=dict(color='blue'))
     fig.update_layout(title=f"📊 Soil & Climate Parameters for {top_3_crops[0]}")
     st.plotly_chart(fig)
+
+    # --- Gauge Meter for Confidence ---
+    fig_gauge = go.Figure(go.Indicator(
+        mode="gauge+number",
+        value=max(probs) * 100,
+        title={'text': "Confidence Level (%)"},
+        gauge={'axis': {'range': [0, 100]}, 'bar': {'color': "green"}}
+    ))
+    st.plotly_chart(fig_gauge)
 
 # --- Show Dataset ---
 st.markdown("<h2 class='big-font'>📊 Crop Dataset</h2>", unsafe_allow_html=True)
