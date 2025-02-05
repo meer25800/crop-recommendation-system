@@ -41,7 +41,7 @@ st.markdown("""
 
 # --- Title ---
 st.markdown("<h1 class='big-font'>🌾 Crop Recommendation System</h1>", unsafe_allow_html=True)
-st.write("🔍 Enter the soil and climate conditions to get a recommended crop.")
+print("🔍 recommended crop Input parameters.")
 
 # --- Load Dataset ---
 @st.cache_data
@@ -82,7 +82,7 @@ if st.sidebar.button("🌱 Recommend Crop"):
     st.sidebar.success(f"✅ Recommended Crop: **{prediction}**")
 
     # --- Visualization ---
-    fig, ax = plt.subplots(figsize=(8, 5))
+    fig, ax = plt.subplots(figsize=(4, 3))
     input_values = [N, P, K, temperature, humidity, ph, rainfall]
     input_labels = ["Nitrogen", "Phosphorus", "Potassium", "Temp (°C)", "Humidity (%)", "pH", "Rainfall (mm)"]
 
