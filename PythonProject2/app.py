@@ -3,9 +3,36 @@ import pandas as pd
 import numpy as np
 from sklearn.tree import DecisionTreeClassifier
 
-st.title("Crop Recommendation System")
+# --- Page Config ---
+st.set_page_config(
+    page_title="🌾 Crop Recommendation System",
+    page_icon="🌱",
+    layout="wide"
+)
 
-# Load dataset from GitHub
+# --- Custom Styles ---
+st.markdown("""
+    <style>
+        .stApp {
+            background-color: #f4f4f4;
+        }
+        .big-font {
+            font-size: 24px !important;
+            font-weight: bold;
+            color: #2E8B57;
+        }
+        .small-font {
+            font-size: 18px !important;
+            font-weight: normal;
+        }
+    </style>
+""", unsafe_allow_html=True)
+
+# --- Title ---
+st.markdown("<h1 class='big-font'>🌾 Crop Recommendation System</h1>", unsafe_allow_html=True)
+st.write("🔍 Enter the soil and climate conditions to get a recommended crop.")
+
+# --- Load Dataset ---
 @st.cache_data
 def load_data():
     url = "https://raw.githubusercontent.com/meer25800/crop-recommendation-system/main/PythonProject2/dataset/Crop_recommendation.csv"
@@ -13,7 +40,7 @@ def load_data():
 
 data = load_data()
 
-# Train the model
+# --- Train Model ---
 @st.cache_resource
 def train_model():
     features = ["N", "P", "K", "temperature", "humidity", "ph", "rainfall"]
@@ -25,23 +52,25 @@ def train_model():
 
 model = train_model()
 
-st.write("Enter the soil and climate conditions to get a recommended crop.")
+# --- Sidebar for Inputs ---
+st.sidebar.header("📝 Input Parameters")
 
-# User inputs
-N = st.number_input("Nitrogen (N)", min_value=0, max_value=100, value=50)
-P = st.number_input("Phosphorus (P)", min_value=0, max_value=100, value=50)
-K = st.number_input("Potassium (K)", min_value=0, max_value=100, value=50)
-temperature = st.number_input("Temperature (°C)", min_value=0.0, max_value=50.0, value=25.0)
-humidity = st.number_input("Humidity (%)", min_value=0.0, max_value=100.0, value=50.0)
-ph = st.number_input("pH Level", min_value=0.0, max_value=14.0, value=7.0)
-rainfall = st.number_input("Rainfall (mm)", min_value=0.0, max_value=500.0, value=100.0)
+N = st.sidebar.slider("Nitrogen (N)", min_value=0, max_value=100, value=50)
+P = st.sidebar.slider("Phosphorus (P)", min_value=0, max_value=100, value=50)
+K = st.sidebar.slider("Potassium (K)", min_value=0, max_value=100, value=50)
+temperature = st.sidebar.slider("Temperature (°C)", min_value=0.0, max_value=50.0, value=25.0)
+humidity = st.sidebar.slider("Humidity (%)", min_value=0.0, max_value=100.0, value=50.0)
+ph = st.sidebar.slider("pH Level", min_value=0.0, max_value=14.0, value=7.0)
+rainfall = st.sidebar.slider("Rainfall (mm)", min_value=0.0, max_value=500.0, value=100.0)
 
-# Predict crop
-if st.button("Recommend Crop"):
+# --- Prediction ---
+if st.sidebar.button("🌱 Recommend Crop"):
     user_input = np.array([[N, P, K, temperature, humidity, ph, rainfall]])
     prediction = model.predict(user_input)
-    st.success(f"Recommended Crop: {prediction[0]}")
+    
+    st.sidebar.success(f"✅ Recommended Crop: **{prediction[0]}**")
 
-# Show dataset if user wants
+# --- Show Dataset ---
+st.markdown("<h2 class='small-font'>📊 Crop Data</h2>", unsafe_allow_html=True)
 if st.checkbox("Show Dataset"):
-    st.dataframe(data)
+    st.dataframe(data.style.set_properties(**{'background-color': '#f9f9f9', 'color': 'black'}))
