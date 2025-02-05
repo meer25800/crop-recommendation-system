@@ -1,6 +1,8 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
 from sklearn.tree import DecisionTreeClassifier
 
 # --- Page Config ---
@@ -75,9 +77,22 @@ rainfall = st.sidebar.slider("Rainfall (mm)", min_value=0.0, max_value=500.0, va
 # --- Prediction ---
 if st.sidebar.button("🌱 Recommend Crop"):
     user_input = np.array([[N, P, K, temperature, humidity, ph, rainfall]])
-    prediction = model.predict(user_input)
+    prediction = model.predict(user_input)[0]
     
-    st.sidebar.success(f"✅ Recommended Crop: **{prediction[0]}**")
+    st.sidebar.success(f"✅ Recommended Crop: **{prediction}**")
+
+    # --- Visualization ---
+    fig, ax = plt.subplots(figsize=(8, 5))
+    input_values = [N, P, K, temperature, humidity, ph, rainfall]
+    input_labels = ["Nitrogen", "Phosphorus", "Potassium", "Temp (°C)", "Humidity (%)", "pH", "Rainfall (mm)"]
+
+    sns.barplot(x=input_labels, y=input_values, palette="coolwarm", ax=ax)
+    ax.set_title(f"📊 Input Parameters for {prediction}", fontsize=16)
+    ax.set_ylabel("Value", fontsize=12)
+    ax.set_xlabel("Parameters", fontsize=12)
+    ax.set_xticklabels(ax.get_xticklabels(), rotation=30)
+    
+    st.pyplot(fig)
 
 # --- Show Dataset ---
 st.markdown("<h2 class='small-font'>📊 Crop Data</h2>", unsafe_allow_html=True)
