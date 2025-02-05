@@ -14,16 +14,25 @@ st.set_page_config(
 st.markdown("""
     <style>
         .stApp {
-            background-color: #f4f4f4;
+            background-color: #2B3A3A;  /* Dark Greenish Background */
+            color: #ffffff;
         }
         .big-font {
             font-size: 24px !important;
             font-weight: bold;
-            color: #2bceee;
+            color: #2BCEEE;
         }
         .small-font {
             font-size: 18px !important;
             font-weight: normal;
+            color: #f1f1f1;
+        }
+        .sidebar .sidebar-content {
+            background-color: #1F2D2D;
+        }
+        .stDataFrame {
+            background-color: #DFFFD6;
+            color: black;
         }
     </style>
 """, unsafe_allow_html=True)
@@ -53,7 +62,7 @@ def train_model():
 model = train_model()
 
 # --- Sidebar for Inputs ---
-st.sidebar.header("📝 Enter Soil & Climate Conditions 🌿")
+st.sidebar.header("📝 Input Parameters")
 
 N = st.sidebar.slider("Nitrogen (N)", min_value=0, max_value=100, value=50)
 P = st.sidebar.slider("Phosphorus (P)", min_value=0, max_value=100, value=50)
@@ -73,4 +82,4 @@ if st.sidebar.button("🌱 Recommend Crop"):
 # --- Show Dataset ---
 st.markdown("<h2 class='small-font'>📊 Crop Data</h2>", unsafe_allow_html=True)
 if st.checkbox("Show Dataset"):
-    st.dataframe(data.style.set_properties(**{'background-color': '#f9f9f9', 'color': 'black'}))
+    st.dataframe(data.style.set_properties(**{'background-color': '#DFFFD6', 'color': 'black'}))
