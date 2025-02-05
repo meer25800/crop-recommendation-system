@@ -19,7 +19,7 @@ st.markdown("""
         .big-font {
             font-size: 24px !important;
             font-weight: bold;
-            color: #2E8B57;
+            color: #2bceee;
         }
         .small-font {
             font-size: 18px !important;
