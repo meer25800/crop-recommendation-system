@@ -41,7 +41,7 @@ st.markdown("""
 
 # --- Title ---
 st.markdown("<h1 class='big-font'>🌾 Crop Recommendation System</h1>", unsafe_allow_html=True)
-print("🔍 recommended crop Input parameters.")
+st.markdown("🔍 recommended crop Input parameters.")
 
 # --- Load Dataset ---
 @st.cache_data
@@ -64,7 +64,7 @@ def train_model():
 model = train_model()
 
 # --- Sidebar for Inputs ---
-st.sidebar.header("📝 Input Parameters")
+st.sidebar.header("Select Soil & Climate Conditions 🌿")
 
 N = st.sidebar.slider("Nitrogen (N)", min_value=0, max_value=100, value=50)
 P = st.sidebar.slider("Phosphorus (P)", min_value=0, max_value=100, value=50)
@@ -82,7 +82,7 @@ if st.sidebar.button("🌱 Recommend Crop"):
     st.sidebar.success(f"✅ Recommended Crop: **{prediction}**")
 
     # --- Visualization ---
-    fig, ax = plt.subplots(figsize=(3, 3))
+    fig, ax = plt.subplots(figsize=(2, 3))
     input_values = [N, P, K, temperature, humidity, ph, rainfall]
     input_labels = ["Nitrogen", "Phosphorus", "Potassium", "Temp (°C)", "Humidity (%)", "pH", "Rainfall (mm)"]
 
@@ -90,7 +90,7 @@ if st.sidebar.button("🌱 Recommend Crop"):
     ax.set_title(f"📊 Input Parameters for {prediction}", fontsize=10)
     ax.set_ylabel("Value", fontsize=8)
     ax.set_xlabel("Parameters", fontsize=8)
-    ax.set_xticklabels(ax.get_xticklabels(), rotation=30)
+    ax.set_xticklabels(ax.get_xticklabels(), rotation=45)
     
     st.pyplot(fig)
 
