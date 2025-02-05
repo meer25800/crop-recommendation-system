@@ -3,7 +3,12 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
+import plotly.express as px
 from sklearn.tree import DecisionTreeClassifier
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.svm import SVC
+from sklearn.preprocessing import LabelEncoder
+from time import sleep
 
 # --- Page Config ---
 st.set_page_config(
@@ -20,28 +25,19 @@ st.markdown("""
             color: #ffffff;
         }
         .big-font {
-            font-size: 24px !important;
+            font-size: 26px !important;
             font-weight: bold;
             color: #2BCEEE;
         }
-        .small-font {
-            font-size: 18px !important;
-            font-weight: normal;
-            color: #f1f1f1;
-        }
         .sidebar .sidebar-content {
             background-color: #1F2D2D;
-        }
-        .stDataFrame {
-            background-color: #DFFFD6;
-            color: black;
         }
     </style>
 """, unsafe_allow_html=True)
 
 # --- Title ---
 st.markdown("<h1 class='big-font'>🌾 Crop Recommendation System</h1>", unsafe_allow_html=True)
-st.markdown("🔍 recommended crop Input parameters.")
+st.markdown("🔍 Select soil & climate parameters to get the best crop recommendations.")
 
 # --- Load Dataset ---
 @st.cache_data
@@ -50,51 +46,65 @@ def load_data():
     return pd.read_csv(url)
 
 data = load_data()
+label_encoder = LabelEncoder()
+data['label'] = label_encoder.fit_transform(data['label'])
 
-# --- Train Model ---
+# --- Train Multiple Models ---
 @st.cache_resource
-def train_model():
+def train_models():
     features = ["N", "P", "K", "temperature", "humidity", "ph", "rainfall"]
     X = data[features]
     y = data["label"]
-    model = DecisionTreeClassifier()
-    model.fit(X, y)
-    return model
+    
+    models = {
+        "Decision Tree": DecisionTreeClassifier(),
+        "Random Forest": RandomForestClassifier(n_estimators=100),
+        "SVM": SVC(probability=True)
+    }
+    
+    for model in models.values():
+        model.fit(X, y)
+    
+    return models
 
-model = train_model()
+models = train_models()
 
 # --- Sidebar for Inputs ---
-st.sidebar.header("Select Soil & Climate Conditions 🌿")
+st.sidebar.header("🌿 Select Soil & Climate Conditions")
 
-N = st.sidebar.slider("Nitrogen (N)", min_value=0, max_value=100, value=50)
-P = st.sidebar.slider("Phosphorus (P)", min_value=0, max_value=100, value=50)
-K = st.sidebar.slider("Potassium (K)", min_value=0, max_value=100, value=50)
-temperature = st.sidebar.slider("Temperature (°C)", min_value=0.0, max_value=50.0, value=25.0)
-humidity = st.sidebar.slider("Humidity (%)", min_value=0.0, max_value=100.0, value=50.0)
-ph = st.sidebar.slider("pH Level", min_value=0.0, max_value=14.0, value=7.0)
-rainfall = st.sidebar.slider("Rainfall (mm)", min_value=0.0, max_value=500.0, value=100.0)
+N = st.sidebar.slider("Nitrogen (N)", 0, 100, 50)
+P = st.sidebar.slider("Phosphorus (P)", 0, 100, 50)
+K = st.sidebar.slider("Potassium (K)", 0, 100, 50)
+temperature = st.sidebar.slider("Temperature (°C)", 0.0, 50.0, 25.0)
+humidity = st.sidebar.slider("Humidity (%)", 0.0, 100.0, 50.0)
+ph = st.sidebar.slider("pH Level", 0.0, 14.0, 7.0)
+rainfall = st.sidebar.slider("Rainfall (mm)", 0.0, 500.0, 100.0)
+
+model_choice = st.sidebar.selectbox("🧠 Choose Model", ["Decision Tree", "Random Forest", "SVM"])
 
 # --- Prediction ---
 if st.sidebar.button("🌱 Recommend Crop"):
+    st.sidebar.info("Processing... Please wait.")
+    sleep(2)  # Simulate loading time
     user_input = np.array([[N, P, K, temperature, humidity, ph, rainfall]])
-    prediction = model.predict(user_input)[0]
+    selected_model = models[model_choice]
+    probs = selected_model.predict_proba(user_input)[0]
+    top_3_indices = np.argsort(probs)[-3:][::-1]
+    top_3_crops = label_encoder.inverse_transform(top_3_indices)
     
-    st.sidebar.success(f"✅ Recommended Crop: **{prediction}**")
-
-    # --- Visualization ---
-    fig, ax = plt.subplots(figsize=(3,3 ))
-    input_values = [N, P, K, temperature, humidity, ph, rainfall]
-    input_labels = ["Nitrogen", "Phosphorus", "Potassium", "Temp (°C)", "Humidity (%)", "pH", "Rainfall (mm)"]
-
-    sns.barplot(x=input_labels, y=input_values, palette="coolwarm", ax=ax)
-    ax.set_title(f"📊 Input Parameters for {prediction}", fontsize=10)
-    ax.set_ylabel("Value", fontsize=8)
-    ax.set_xlabel("Parameters", fontsize=8)
-    ax.set_xticklabels(ax.get_xticklabels(), rotation=45)
+    st.sidebar.success(f"✅ Best Crop: **{top_3_crops[0]}**")
+    st.sidebar.write(f"🥈 Second Best: {top_3_crops[1]}")
+    st.sidebar.write(f"🥉 Third Best: {top_3_crops[2]}")
     
-    st.pyplot(fig)
+    # --- Radar Chart ---
+    params = [N, P, K, temperature, humidity, ph, rainfall]
+    param_labels = ["Nitrogen", "Phosphorus", "Potassium", "Temp", "Humidity", "pH", "Rainfall"]
+    fig = px.line_polar(r=dict(zip(param_labels, params)), theta=param_labels, line_close=True)
+    fig.update_traces(fill='toself', line=dict(color='blue'))
+    fig.update_layout(title=f"📊 Soil & Climate Parameters for {top_3_crops[0]}")
+    st.plotly_chart(fig)
 
 # --- Show Dataset ---
-st.markdown("<h2 class='small-font'>📊 Crop Data</h2>", unsafe_allow_html=True)
+st.markdown("<h2 class='big-font'>📊 Crop Dataset</h2>", unsafe_allow_html=True)
 if st.checkbox("Show Dataset"):
-    st.dataframe(data.style.set_properties(**{'background-color': '#DFFFD6', 'color': 'black'}))
+    st.dataframe(data.drop(columns=['label']).style.set_properties(**{'background-color': '#DFFFD6', 'color': 'black'}))
