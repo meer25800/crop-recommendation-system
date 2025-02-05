@@ -2,62 +2,46 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import pickle
-import seaborn as sns
-import matplotlib.pyplot as plt
 from sklearn.tree import DecisionTreeClassifier
 
-# Load dataset
-@st.cache_data
-def load_data():
-    return pd.read_csv("dataset/Crop_recommendation.csv")
+st.title("Crop Recommendation System")
 
-data = load_data()
+# File uploader for dataset
+uploaded_file = st.file_uploader("Upload Crop Recommendation Dataset (CSV)", type=["csv"])
 
-# Train the model
-@st.cache_resource
-def train_model():
-    features = ["N", "P", "K", "temperature", "humidity", "ph", "rainfall"]
-    X = data[features]
-    y = data["label"]
-    model = DecisionTreeClassifier()
-    model.fit(X, y)
-    return model
+if uploaded_file is not None:
+    # Read the uploaded CSV file
+    data = pd.read_csv(uploaded_file)
 
-model = train_model()
+    # Train a simple model
+    @st.cache_resource
+    def train_model():
+        features = ["N", "P", "K", "temperature", "humidity", "ph", "rainfall"]
+        X = data[features]
+        y = data["label"]
+        model = DecisionTreeClassifier()
+        model.fit(X, y)
+        return model
 
-# Streamlit UI
-st.title("🌱 Crop Recommendation System")
+    model = train_model()
 
-st.sidebar.header("Enter Soil & Climate Conditions 🌿")
+    st.write("Enter the soil and climate conditions to get a recommended crop.")
 
-# Sidebar inputs
-N = st.sidebar.slider("Nitrogen (N)", 0, 100, 50)
-P = st.sidebar.slider("Phosphorus (P)", 0, 100, 50)
-K = st.sidebar.slider("Potassium (K)", 0, 100, 50)
-temperature = st.sidebar.slider("Temperature (°C)", 0.0, 50.0, 25.0)
-humidity = st.sidebar.slider("Humidity (%)", 0.0, 100.0, 50.0)
-ph = st.sidebar.slider("pH Level", 0.0, 14.0, 7.0)
-rainfall = st.sidebar.slider("Rainfall (mm)", 0.0, 500.0, 100.0)
+    # User inputs
+    N = st.number_input("Nitrogen (N)", min_value=0, max_value=100, value=50)
+    P = st.number_input("Phosphorus (P)", min_value=0, max_value=100, value=50)
+    K = st.number_input("Potassium (K)", min_value=0, max_value=100, value=50)
+    temperature = st.number_input("Temperature (°C)", min_value=0.0, max_value=50.0, value=25.0)
+    humidity = st.number_input("Humidity (%)", min_value=0.0, max_value=100.0, value=50.0)
+    ph = st.number_input("pH Level", min_value=0.0, max_value=14.0, value=7.0)
+    rainfall = st.number_input("Rainfall (mm)", min_value=0.0, max_value=500.0, value=100.0)
 
-# Predict crop automatically
-user_input = np.array([[N, P, K, temperature, humidity, ph, rainfall]])
-prediction = model.predict(user_input)
-st.success(f"🌾 Recommended Crop: **{prediction[0]}**")
+    # Predict crop
+    if st.button("Recommend Crop"):
+        user_input = np.array([[N, P, K, temperature, humidity, ph, rainfall]])
+        prediction = model.predict(user_input)
+        st.success(f"Recommended Crop: {prediction[0]}")
 
-# Dataset exploration
-st.subheader("📊 Dataset Exploration")
-if st.checkbox("Show Dataset"):
-    st.dataframe(data)
-
-# Filtering by Crop
-crop_list = data["label"].unique()
-selected_crop = st.selectbox("Filter Dataset by Crop:", ["All"] + list(crop_list))
-if selected_crop != "All":
-    st.dataframe(data[data["label"] == selected_crop])
-
-# Visualization
-st.subheader("📈 Data Insights")
-if st.checkbox("Show Correlation Heatmap"):
-    fig, ax = plt.subplots(figsize=(10, 6))
-    sns.heatmap(data.drop(columns=["label"]).corr(), annot=True, cmap="coolwarm", ax=ax)
-    st.pyplot(fig)
+    # Show dataset if user wants
+    if st.checkbox("Show Dataset"):
+        st.dataframe(data)
