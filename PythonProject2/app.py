@@ -53,7 +53,7 @@ def train_model():
 model = train_model()
 
 # --- Sidebar for Inputs ---
-st.sidebar.header("📝 Input Parameters")
+st.sidebar.header("📝 Enter Soil & Climate Conditions 🌿")
 
 N = st.sidebar.slider("Nitrogen (N)", min_value=0, max_value=100, value=50)
 P = st.sidebar.slider("Phosphorus (P)", min_value=0, max_value=100, value=50)
