@@ -8,6 +8,9 @@ import plotly.graph_objects as go
 import requests
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.ensemble import RandomForestClassifier
+from sklearn.linear_model import LogisticRegression
+from sklearn.naive_bayes import GaussianNB
+from sklearn.neighbors import KNeighborsClassifier
 from sklearn.svm import SVC
 from sklearn.preprocessing import LabelEncoder
 from time import sleep
@@ -72,7 +75,10 @@ def train_models():
     models = {
         "Decision Tree": DecisionTreeClassifier(),
         "Random Forest": RandomForestClassifier(n_estimators=100),
-        "SVM": SVC(probability=True)
+        "SVM": SVC(probability=True),
+        "KNN": KNeighborsClassifier(),
+        "Logistic Regression": LogisticRegression(),
+        "Naive Bayes": GaussianNB()
     }
     
     for model in models.values():
