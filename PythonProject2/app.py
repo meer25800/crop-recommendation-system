@@ -91,13 +91,13 @@ models = train_models()
 # --- Sidebar for Inputs ---
 st.sidebar.header("🌿 Select Soil & Climate Conditions")
 
-N = st.sidebar.slider("Nitrogen (N)", 0, 100, 50)
-P = st.sidebar.slider("Phosphorus (P)", 0, 100, 50)
-K = st.sidebar.slider("Potassium (K)", 0, 100, 50)
+N = st.sidebar.slider("Nitrogen (N)", 0, 140, 50)
+P = st.sidebar.slider("Phosphorus (P)", 5, 130, 50)
+K = st.sidebar.slider("Potassium (K)", 5, 85, 50)
 temperature = st.sidebar.slider("Temperature (°C)", 0.0, 50.0, 25.0)
 humidity = st.sidebar.slider("Humidity (%)", 0.0, 100.0, 50.0)
 ph = st.sidebar.slider("pH Level", 0.0, 14.0, 7.0)
-rainfall = st.sidebar.slider("Rainfall (mm)", 0.0, 500.0, 100.0)
+rainfall = st.sidebar.slider("Rainfall (mm)", 0.0, 300.0, 100.0)
 
 model_choice = st.sidebar.selectbox("🧠 Choose Model", ["Decision Tree", "Random Forest", "SVM","KNN","Logistic Regression", "Naive Bayes"])
 
