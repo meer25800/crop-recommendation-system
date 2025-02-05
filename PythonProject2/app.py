@@ -97,7 +97,7 @@ K = st.sidebar.slider("Potassium (K)", 5, 85, 50)
 temperature = st.sidebar.slider("Temperature (°C)", 8.0, 45.0, 25.0)
 humidity = st.sidebar.slider("Humidity (%)", 10.0, 100.0, 50.0)
 ph = st.sidebar.slider("pH Level", 2.0, 10.0, 7.0)
-rainfall = st.sidebar.slider("Rainfall (mm)", 20.0, 220.0, 100.0)
+rainfall = st.sidebar.slider("Rainfall (mm)", 20.0, 300.0, 100.0)
 
 model_choice = st.sidebar.selectbox("🧠 Choose Model", ["Decision Tree", "Random Forest", "SVM","KNN","Logistic Regression", "Naive Bayes"])
 
