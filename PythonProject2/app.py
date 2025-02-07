@@ -44,6 +44,13 @@ st.markdown("""
             font-weight: bold;
             color: #ffffff;
         }
+
+         /* Sidebar Gradient Background */
+        .sidebar .sidebar-content {
+            background: linear-gradient(to bottom, #0f2027, #203a43, #2c5364);  /* Cool Gradient */
+            padding: 20px;
+            border-radius: 15px;
+        }
         .sidebar .sidebar-content {
             background-color: #162447
             border-radius: 10px;
