@@ -45,21 +45,22 @@ st.markdown("""
             color: #ffffff;
         }
 
-         /* Sidebar Gradient Background */
-        .sidebar .sidebar-content {
-            background: linear-gradient(to bottom, #11998e, #38ef7d);  /* Teal to Green Gradient */
+          /* Apply Gradient to the Entire Sidebar (Desktop & Mobile) */
+        [data-testid="stSidebar"] {
+            background: linear-gradient(to bottom, #11998e, #38ef7d) !important;  /* Teal to Green Gradient */
             padding: 20px;
             border-radius: 15px;
+            min-height: 100vh;  /* Full height on mobile */
         }
 
         /* Sidebar Header Text */
         .sidebar .sidebar-content h2 {
-            color: #ffffff;  /* White text for contrast */
+            color: #ffffff !important;  /* White Text for Headings */
         }
 
-        /* Slider Labels */
+        /* Sidebar Label Colors */
         .stSlider > label {
-            color: #ffffff !important;  /* White text for slider labels */
+            color: #ffffff !important;  /* White for Slider Labels */
             font-weight: bold;
         }
 
