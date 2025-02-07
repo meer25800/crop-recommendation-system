@@ -54,7 +54,21 @@ st.markdown("""
         }
       
 
+/* Sidebar Button Styling */
+        .stButton > button {
+            background-color: #4CAF50 !important;  /* Vibrant Green Button */
+            color: white !important;               /* White Text */
+            font-weight: bold;                     /* Bold Text */
+            border-radius: 8px;                    /* Rounded Corners */
+            padding: 10px 20px;                    /* Padding for size */
+            transition: background-color 0.3s ease;/* Smooth Hover Transition */
+        }
 
+        /* Hover Effect for Button */
+        .stButton > button:hover {
+            background-color: #45a049 !important;  /* Darker Green on Hover */
+            color: #e8f5e9 !important;             /* Slight Tint for Hover Text */
+        }
 
 
 
