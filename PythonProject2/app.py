@@ -57,23 +57,7 @@ st.markdown("""
 
       
 
-        /* Slider Labels */
-        .stSlider > label {
-            color: #f9aa33;  /* Amber color for slider labels */
-            font-weight: bold;
-        }
-
-        /* Slider Track */
-        .stSlider .rc-slider-track {
-            background-color: #f9aa33;  /* Amber for the filled slider track */
-        }
-
-        /* Slider Handle */
-        .stSlider .rc-slider-handle {
-            background-color: #f9aa33;  /* Amber for the handle */
-            border: 2px solid #344955;
-        }
-
+       
         
        
     </style>
