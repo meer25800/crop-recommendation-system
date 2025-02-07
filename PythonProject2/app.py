@@ -53,12 +53,7 @@ st.markdown("""
 
 
 
-/* Sidebar Styling */
-        .sidebar .sidebar-content {
-            background-color: #344955;  /* Dark Slate Gray */
-            padding: 20px;
-            border-radius: 10px;
-        }
+
 
       
 
