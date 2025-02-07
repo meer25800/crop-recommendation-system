@@ -36,7 +36,7 @@ st.markdown("""
     <style>
         .stApp {
             background: linear-gradient(to right, #c52adc, #dc8d2a);
-            color: #dc2a2d;
+            color: #2adcd2;
         }
         .big-font {
             font-size: 28px !important;
