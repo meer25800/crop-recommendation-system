@@ -41,7 +41,7 @@ st.markdown("""
         .big-font {
             font-size: 28px !important;
             font-weight: bold;
-            color: #2BCEEE;
+            color: #ffffff;
         }
         .sidebar .sidebar-content {
             background-color: #3e4181
