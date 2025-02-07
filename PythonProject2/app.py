@@ -35,8 +35,8 @@ st.set_page_config(
 st.markdown("""
     <style>
         .stApp {
-            background: linear-gradient(to right, #dc872a, #dc8d2a);
-            color: #2adcd2;
+            background: linear-gradient(to right, #1e3c72, #2a5298);
+            color: #ffffff;
         }
         .big-font {
             font-size: 28px !important;
@@ -44,7 +44,7 @@ st.markdown("""
             color: #ffffff;
         }
         .sidebar .sidebar-content {
-            background-color: #3e4181
+            background-color: #162447
             border-radius: 10px;
             padding: 10px;
         }
