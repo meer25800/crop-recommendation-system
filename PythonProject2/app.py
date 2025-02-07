@@ -35,7 +35,7 @@ st.set_page_config(
 st.markdown("""
     <style>
         .stApp {
-            background: linear-gradient(to right, #2a8fdc, #3E4C4C);
+            background: linear-gradient(to right, #c52adc, #dc8d2a);
             color: #dc2a2d;
         }
         .big-font {
