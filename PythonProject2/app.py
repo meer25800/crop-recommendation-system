@@ -36,7 +36,7 @@ st.markdown("""
     <style>
         .stApp {
             background: linear-gradient(to right, #2B3A3A, #3E4C4C);
-            color: #ffffff;
+            color: #3e8166;
         }
         .big-font {
             font-size: 28px !important;
@@ -44,7 +44,7 @@ st.markdown("""
             color: #2BCEEE;
         }
         .sidebar .sidebar-content {
-            background-color: #1F2D2D;
+            background-color: #3e4181
             border-radius: 10px;
             padding: 10px;
         }
