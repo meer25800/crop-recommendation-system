@@ -17,6 +17,7 @@ from time import sleep
 import sys
 import subprocess
 
+
 # Ensure Plotly is installed
 try:
     import plotly.express as px
@@ -48,12 +49,43 @@ st.markdown("""
             border-radius: 10px;
             padding: 10px;
         }
-        /* Input Field Styling for Better Visibility */
-        .stNumberInput input {
-            background-color: #f0f0f0;  /* Light grey for better contrast */
-            color: #000000;  /* Black text for clarity */
-            border-radius: 5px;
+
+
+
+
+/* Sidebar Styling */
+        .sidebar .sidebar-content {
+            background-color: #344955;  /* Dark Slate Gray */
+            padding: 20px;
+            border-radius: 10px;
         }
+
+        /* Slider Min/Max Values in Red */
+        .stSlider .css-1cpxqw2,  /* Class for min/max value in Streamlit */
+        .stSlider .css-14xtw13 {  /* Additional class for compatibility */
+            color: red !important;  /* Make min/max values red */
+            font-weight: bold;
+        }
+
+        /* Slider Labels */
+        .stSlider > label {
+            color: #f9aa33;  /* Amber color for slider labels */
+            font-weight: bold;
+        }
+
+        /* Slider Track */
+        .stSlider .rc-slider-track {
+            background-color: #f9aa33;  /* Amber for the filled slider track */
+        }
+
+        /* Slider Handle */
+        .stSlider .rc-slider-handle {
+            background-color: #f9aa33;  /* Amber for the handle */
+            border: 2px solid #344955;
+        }
+
+        
+       
     </style>
 """, unsafe_allow_html=True)
 
