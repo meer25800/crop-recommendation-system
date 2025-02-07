@@ -60,12 +60,7 @@ st.markdown("""
             border-radius: 10px;
         }
 
-        /* Slider Min/Max Values in Red */
-        .stSlider .css-1cpxqw2,  /* Class for min/max value in Streamlit */
-        .stSlider .css-14xtw13 {  /* Additional class for compatibility */
-            color: red !important;  /* Make min/max values red */
-            font-weight: bold;
-        }
+      
 
         /* Slider Labels */
         .stSlider > label {
