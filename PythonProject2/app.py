@@ -47,12 +47,21 @@ st.markdown("""
 
          /* Sidebar Gradient Background */
         .sidebar .sidebar-content {
-            background: linear-gradient(to bottom, #0f2027, #203a43, #2c5364);  /* Cool Gradient */
+            background: linear-gradient(to bottom, #11998e, #38ef7d);  /* Teal to Green Gradient */
             padding: 20px;
-            padding:10px;
             border-radius: 15px;
         }
-      
+
+        /* Sidebar Header Text */
+        .sidebar .sidebar-content h2 {
+            color: #ffffff;  /* White text for contrast */
+        }
+
+        /* Slider Labels */
+        .stSlider > label {
+            color: #ffffff !important;  /* White text for slider labels */
+            font-weight: bold;
+        }
 
 .stButton > button {
             background-color: #FF5722 !important;  /* Bright Orange-Red */
