@@ -54,20 +54,21 @@ st.markdown("""
         }
       
 
-/* Sidebar Button Styling */
-        .stButton > button {
-            background-color: #4CAF50 !important;  /* Vibrant Green Button */
+.stButton > button {
+            background-color: #FF5722 !important;  /* Bright Orange-Red */
             color: white !important;               /* White Text */
             font-weight: bold;                     /* Bold Text */
-            border-radius: 8px;                    /* Rounded Corners */
-            padding: 10px 20px;                    /* Padding for size */
+            border: none;                          /* No Border */
+            border-radius: 10px;                   /* Rounded Corners */
+            padding: 12px 24px;                    /* Spacious Padding */
             transition: background-color 0.3s ease;/* Smooth Hover Transition */
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); /* Soft Shadow */
         }
 
         /* Hover Effect for Button */
         .stButton > button:hover {
-            background-color: #45a049 !important;  /* Darker Green on Hover */
-            color: #e8f5e9 !important;             /* Slight Tint for Hover Text */
+            background-color: #E64A19 !important;  /* Darker Orange on Hover */
+            color: #FFFFFF !important;             /* Maintain White Text */
         }
 
 
