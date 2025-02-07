@@ -35,14 +35,17 @@ st.set_page_config(
 # --- Custom Styles ---
 st.markdown("""
     <style>
+     /* Main App Background (Complementary Gradient) */
         .stApp {
-            background: linear-gradient(to right, #1e3c72, #2a5298);
-            color: #ffffff;
+            background: linear-gradient(to right, #43cea2, #185a9d);  /* Teal to Blue Gradient */
+            color: #ffffff;  /* White Text for Contrast */
         }
+
+        /* Heading Font Style */
         .big-font {
             font-size: 28px !important;
             font-weight: bold;
-            color: #ffffff;
+            color: #ffffff;  /* Consistent White Heading Color */
         }
 
           /* Apply Gradient to the Entire Sidebar (Desktop & Mobile) */
