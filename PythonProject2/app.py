@@ -48,6 +48,12 @@ st.markdown("""
             border-radius: 10px;
             padding: 10px;
         }
+        /* Input Field Styling for Better Visibility */
+        .stNumberInput input {
+            background-color: #f0f0f0;  /* Light grey for better contrast */
+            color: #000000;  /* Black text for clarity */
+            border-radius: 5px;
+        }
     </style>
 """, unsafe_allow_html=True)
 
